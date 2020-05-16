@@ -1,0 +1,57 @@
+# Roomba Automations
+
+  # Update Vacuum REST Sensor for Location Details
+  - alias: Vacuum Update Location
+    initial_state: true
+    trigger:
+      - platform: time_pattern
+        seconds: /2
+      - platform: event
+        event_type: call_service
+        event_data:
+          domain: rest_command
+          service: vacuum_action
+    condition: 
+      condition: or
+      conditions:
+        - condition: template
+          value_template: "{{ is_state_attr('sensor.vacuum', 'phase', 'Run') }}"
+        - condition: template
+          value_template: "{{ is_state_attr('sensor.vacuum', 'phase', 'Sent Home') }}"
+        - condition: template
+          value_template: "{{ is_state_attr('sensor.vacuum', 'phase', 'Mid Dock') }}"
+        - condition: template
+          value_template: "{{ is_state_attr('sensor.vacuum', 'phase', 'Final Dock') }}"
+    action:
+      - service: homeassistant.update_entity
+        entity_id: sensor.rest980
+
+  # Maintence Check
+  - alias: Vacuum Maintenance Check
+    initial_state: true
+    trigger:
+      - platform: time_pattern
+        minutes: /15
+      - platform: state
+        entity_id: [
+          'sensor.vacuum_maint_clean_brushes',
+          'sensor.vacuum_maint_clean_contacts',
+          'sensor.vacuum_maint_clean_filter',
+          'sensor.vacuum_maint_clean_wheel',
+          'sensor.vacuum_maint_clean_bin',
+          'sensor.vacuum_maint_replace_brushes',
+          'sensor.vacuum_maint_replace_filter',
+          'sensor.vacuum_maint_replace_wheel'
+        ]
+    action:
+      - service_template: >-
+          {% set ns = namespace(count = 0) %}
+          {% for item in states.sensor if 'vacuum_maint' in item.entity_id and (state_attr(item.entity_id, 'timeout_timestamp') < as_timestamp(now())) %}
+            {% set ns.count = loop.index %}
+          {% endfor %}
+          {% if ns.count > 0 %}
+            input_boolean.turn_on
+          {% else %}
+            input_boolean.turn_off
+          {% endif %}
+        entity_id: input_boolean.vacuum_maint_due
