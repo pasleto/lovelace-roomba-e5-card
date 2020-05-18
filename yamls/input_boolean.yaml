@@ -1,5 +1,0 @@
-# Roomba Input Boolean
-
-  vacuum_maint_due:
-    name: Vacuum Maintenance
-    icon: mdi:wrench

@@ -23,7 +23,7 @@
       }
       .title-left {
         font-size: 20px;
-        padding: 16px 16px 0;
+        padding: 16px 16px 4px 16px;
         text-align: left;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -31,14 +31,6 @@
         color: var(--primary-text-color);
         text-shadow: none;
         font-weight: 700;
-      }
-      .title-right {
-        font-size: 18px;
-        padding: 16px 16px 0;
-        text-align: right;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
       }
       .content {
         cursor: pointer;
@@ -102,11 +94,9 @@
           return html`
           <ha-card .hass="${this._hass}" .config="${this._config}" class="background" style="${this.style.background}">
             ${this.state.showTitle ?
-            html`<div class="grid">
+            html`<div>
               ${this.state.name ?
               html`<div class="title-left" style="${this.style.text}" @click="${() => this.fireEvent('hass-more-info')}">${this.state.name}</div>` : html`<div class="title-left" style="${this.style.text}" @click="${() => this.fireEvent('hass-more-info')}"></div>`}
-              ${this.state.showMaint ?
-              html`<div class="title-right" style="${this.style.text}" @click="${() => this.fireEvent('hass-more-info')}"><ha-icon icon="mdi:wrench" style="padding-bottom: 5px"></ha-icon> <ha-icon icon="${this.getMaintStatus('icon')}" style="padding-bottom: 5px; color:${this.getMaintStatus('color')}"></ha-icon></div>` : null}
             </div>` : null }
             ${this.state.showLabels ? html`
             <div class="content grid" style="${this.style.content + this.style.text}" >
@@ -161,7 +151,7 @@
       }
 
       getValue(field) {
-          if((this.state.attributes[field] === 'full_clean') || (this.state.attributes[field] === 'resume_clean') || (this.state.attributes[field] === 'pause_clean') || (this.state.attributes[field] === 'stop_clean') || (this.state.attributes[field] === 'dock')){
+          if((this.state.attributes[field] === 'bin_missing') || (this.state.attributes[field] === 'full_clean') || (this.state.attributes[field] === 'resume_clean') || (this.state.attributes[field] === 'pause_clean') || (this.state.attributes[field] === 'stop_clean') || (this.state.attributes[field] === 'dock')){
             return `${this.state.labels[field]}`;
           }
           if((this.state.attributes[field] === 'total_header') || (this.state.attributes[field] === 'job_header')){
@@ -188,23 +178,6 @@
           if (value !== this.state.vac_states.ready ? this.tabSwap('last') : this.tabSwap('total'));
         }
         return `${this.state.labels[field]}: ${value}`;
-      };
-
-      getMaintStatus(field) {
-        switch(field) {
-          case "icon":
-            if (this.stateObj.attributes['maint_due'] === 'true') {
-              return `mdi:alert`;
-            } else {
-              return `mdi:checkbox-marked`;
-            }
-          case "color":
-            if (this.stateObj.attributes['maint_due'] === 'true') {
-              return `red`;
-            } else {
-              return `green`;
-            }
-        }       
       };
 
       getButton(index, field) {
@@ -334,7 +307,6 @@
               mode: 'Mode',
               battery: 'Battery',
               bin: 'Bin',
-              maint: 'Maint',
               total_time: 'Time',
               total_jobs: 'Jobs',
               dirt_events: 'Dirts',
@@ -366,7 +338,6 @@
               mode: 'phase',
               bin: 'bin',
               bin_present: 'bin_present',
-              maint_due: 'maint_due',
               total_time: 'total_time',
               total_jobs: 'total_jobs',
               dirt_events: 'dirt_events',
@@ -396,10 +367,9 @@
               showTotals: config.totals !== false,
               showJob: config.job !== false,
               showButtons: config.buttons !== false,
-              showMaint: config.maint !== false,
               showLabels: config.labels !== false,
               showName: config.name !== false,
-              showTitle: (config.name !== false || config.maint !== false),
+              showTitle: config.name !== false,
               defaultTotals: config.defaultjob !== true ? (config.totals !== false ? true : false) : (config.job !== false ? false : true), 
               hideRightGrid: (config.totals === false && config.job === false),
               autoSwitch: config.autoswitch !== false,
