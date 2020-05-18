@@ -2,7 +2,7 @@
   const html = LitElement.prototype.html;
   const css = LitElement.prototype.css;
 
-  class Roomba5Card extends LitElement {
+  class LovelaceRoomba5Card extends LitElement {
 
       static get properties() {
           return {
@@ -402,5 +402,5 @@
       }
   }
 
-  customElements.define('roomba-e5-card', Roomba5Card);
+  customElements.define('lovelace-roomba-e5-card', LovelaceRoomba5Card);
 })(window.LitElement || Object.getPrototypeOf(customElements.get("hui-view")));
