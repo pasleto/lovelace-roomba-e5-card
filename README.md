@@ -7,7 +7,7 @@ HA Lovelace Card for iRobot Roomba e5 Vacuum Cleaner leveraging the local rest98
 Please refer my [roomba-e5-setup] GitHub Repository for detailed instructions for using this card.
 
 <p align="center">
-    <img src="./example/card_example.png" alt="Idle"/>
+    <img src="https://raw.githubusercontent.com/pasleto/hassio-roomba-e5-setup/master/example/card_example.png" alt="Idle"/>
 </p>
 
 ## Setup
