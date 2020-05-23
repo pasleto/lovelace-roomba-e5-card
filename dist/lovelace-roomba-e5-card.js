@@ -383,7 +383,7 @@
           this.style = {
               text: `cursor: pointer;`,
               content: `padding: ${config.showButtons ? '16px 16px 4px' : '16px'};`,
-              background: config.image !== false ? `background-image: url('${config.image || '/local/my-cards/vacuum.png'}')` : ''
+              background: config.image !== false ? `background-image: url('${config.image || '/hacsfiles/lovelace-roomba-e5-card/vacuum.png'}')` : ''
           };
 
           this._config = config;
