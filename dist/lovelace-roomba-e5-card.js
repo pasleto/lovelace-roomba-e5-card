@@ -1,6 +1,4 @@
-((LitElement) => {
-  const html = LitElement.prototype.html;
-  const css = LitElement.prototype.css;
+import { LitElement, html, css } from "https://unpkg.com/lit-element@2.0.1/lit-element.js?module";
 
   class LovelaceRoomba5Card extends LitElement {
 
@@ -16,78 +14,79 @@
 
       static get styles() {
           return css`
-      .background {
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-      }
-      .title-left {
-        font-size: 20px;
-        padding: 16px 16px 4px 16px;
-        text-align: left;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        color: var(--primary-text-color);
-        text-shadow: none;
-        font-weight: 700;
-      }
-      .content {
-        cursor: pointer;
-        color: var(--primary-text-color);
-        text-shadow: none;
-      }
-      .flex {
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        color: var(--primary-text-color);
-        text-shadow: none;
-      }
-      .button {
-        cursor: pointer;
-        padding: 16px;
-      }
-      .button:hover {
-        font-weight: 600;
-      }
-      .button-blank {
-        cursor: pointer;
-        padding: 28px;
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(2, auto);
-      }
-      .grid-content {
-        display: grid;
-        align-content: space-between;
-        grid-row-gap: 6px;
-      }
-      .grid-left {
-        text-align: left;
-        font-size: 110%;
-        padding-left: 10px;
-        border-left: 2px solid var(--primary-color);
-      }
-      .grid-right {
-        text-align: right;
-        font-size: 110%;
-        padding-right: 10px;
-        border-right: 2px solid var(--primary-color);
-      }
-      .tabactive {
-        display: grid;
-      }
-      .tabpassive {
-        display: none;
-      }
-      .totals {
-        border-right: 2px solid var(--primary-color)
-      }
-      .job {
-        border-right: 2px solid var(--accent-color)
-      }`;
+            .background {
+              background-repeat: no-repeat;
+              background-position: center center;
+              background-size: cover;
+            }
+            .title-left {
+              font-size: 20px;
+              padding: 16px 16px 4px 16px;
+              text-align: left;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              color: var(--primary-text-color);
+              text-shadow: none;
+              font-weight: 700;
+            }
+            .content {
+              cursor: pointer;
+              color: var(--primary-text-color);
+              text-shadow: none;
+            }
+            .flex {
+              display: flex;
+              align-items: center;
+              justify-content: space-evenly;
+              color: var(--primary-text-color);
+              text-shadow: none;
+            }
+            .button {
+              cursor: pointer;
+              padding: 16px;
+            }
+            .button:hover {
+              font-weight: 600;
+            }
+            .button-blank {
+              cursor: pointer;
+              padding: 28px;
+            }
+            .grid {
+              display: grid;
+              grid-template-columns: repeat(2, auto);
+            }
+            .grid-content {
+              display: grid;
+              align-content: space-between;
+              grid-row-gap: 6px;
+            }
+            .grid-left {
+              text-align: left;
+              font-size: 110%;
+              padding-left: 10px;
+              border-left: 2px solid var(--primary-color);
+            }
+            .grid-right {
+              text-align: right;
+              font-size: 110%;
+              padding-right: 10px;
+              border-right: 2px solid var(--primary-color);
+            }
+            .tabactive {
+              display: grid;
+            }
+            .tabpassive {
+              display: none;
+            }
+            .totals {
+              border-right: 2px solid var(--primary-color)
+            }
+            .job {
+              border-right: 2px solid var(--accent-color)
+            }
+        `;
       }
 
       render() {
@@ -403,4 +402,3 @@
   }
 
   customElements.define('lovelace-roomba-e5-card', LovelaceRoomba5Card);
-})(window.LitElement || Object.getPrototypeOf(customElements.get("hui-view")));
